@@ -1,0 +1,164 @@
+<?php
+    
+        // массив нашего меню, в будущем будет взят из базы данных
+        $menu=[
+                ['title'=>'Войти', 'link'=>'/?page=enter'],
+                ['title'=>'Главная', 'link'=>'/'],
+                ['title'=>'Новости', 'link'=>'/?page=news',
+                        'children'=>[
+                                ['title'=>'Муз-новости', 'link'=>'/?page=musicnews'],
+                                ['title'=>'Кино-новости', 'link'=>'/?page=kinonews'],
+                        ]
+                ],
+                ['title'=>'Альбомы', 'link'=>'/?page=albums'],
+                ['title'=>'Рецензии', 'link'=>'/?page=reviews'],
+                ['title'=>'Обратная связь', 'link'=>'/?page=contacts']
+        ];
+  
+   
+        // массив классов для разных уровней иерархии
+        $classes = [0=>'menu','submenu','third-level'];
+        // объявляем функцию
+        function printMenu($menu, $level){
+                // объявляем доступ к глобальной переменной
+                global $classes;
+                // начинаем формирование меню с учетом класса соответствующего текущему уровню иерархии
+                $html= "<ul class=\"{$classes[$level]}\">\n";
+                // в цикле выводим все элементы текущего уровня
+                foreach($menu AS $i=>$item){
+                        // выводим конкретный текущий элемент
+                        $html.="<li class='item-$i'><a href='{$item['link']}'>{$item['title']}</a>\n";
+                        // проверяем есть ли дочерние элементы
+                        if(count($item['children'])){
+                                // выводим дочерние элементы, если они есть
+                                $html.=printMenu($item['children'], $level+1);
+                        }
+                        // конец формирования вывода
+                        $html.="</li>";
+                }
+                // завершаем формирование
+                $html.= '</ul>';
+                // возвращаем результат
+                return $html;
+        }
+
+        $pages=[
+                'enter'=>['title'=>'Enter', 'content'=>'
+                        <section>
+                                <form action="register.php" method="post">
+
+                                <table>
+                                <tr>
+                                <td>Введите логин:</td>
+                                <td> <input type="text" name=log> </td>
+                                </tr>
+
+                                <tr>
+                                <td>Введите пароль:</td>
+                                <td><input type="text" name=pass> </td>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td colspan="2"><input type="submit" value="Вход" </td>
+                                </tr>
+                                </table>
+                                </form> 
+                        </section>'],
+                'contacts'=>['title'=>'Contacts', 'content'=>'
+                        <section>
+                                <form method="post" action="#">
+                                        <div class="field half first">
+                                                <label for="name">Имячко)</label>
+                                                <input type="text" name="name" id="name" />
+                                        </div>
+                                        <div class="field half">
+                                                <label for="email">Адрес почты</label>
+                                                <input type="text" name="email" id="email" />
+                                        </div>
+                                        <div class="field">
+                                                <label for="message">Сообщение:</label>
+                                                <textarea name="message" id="message" rows="5"></textarea>
+                                        </div>
+                                        <ul class="actions">
+                                                <li><a href="" class="button submit">Отправить сообщение)</a></li>
+                                        </ul>
+                                </form>
+                        </section>'],
+                'reviews'=>['title'=>'Rewiew', 'content'=>'<section>
+                                <a href="#" class="image"><img src="images/rewiew1.jpg" alt="" data-position="top center" /></a>
+                                <div class="content">
+                                        <div class="inner">
+                                                <h2>РЕЦЕНЗИЯ НА ЧТО-ТО</h2>
+                                                <p>Описание заголовка, музыка, ля-ля-ля</p>
+                                                <ul class="actions">
+                                                        <li><a href="#" class="button">Читать подробней</a></li>
+                                                </ul>
+                                        </div>
+                                </div>
+                        </section>'],
+                'albums'=>['title'=>'Albums', 'content'=>'
+                        <section>
+                                                <a href="#" class="image"><img src="images/album1.jpg" alt="" data-position="top center" /></a>
+                                                <div class="content">
+                                                        <div class="inner">
+                                                                <h2>Обложка Альбома</h2>
+                                                                <p>Коментарий к альбому. Много текста.</p>
+
+                                                        </div>
+                                                </div>
+                                        </section>
+                        '],
+                'news'=>['title'=>'News', 'content'=>'
+                        <section>
+                                                <a href="#" class="image"><img src="images/new1.jpg" alt="" data-position="top center" /></a>
+                                                <div class="content">
+                                                        <div class="inner">
+                                                                <h2>ШОК!!! </h2>
+                                                                <p>Завтра на заняти для ничего не подозревающих студентов готовится тест!!!)</p>
+
+                                                        </div>
+                                                </div>
+                                        </section>
+                        '],
+                'musicnews'=>['title'=>'Musicnews', 'content'=>'
+
+                                                        <section>
+                                                                <span class="icon major fa-desktop"></span>
+                                                                <h3>Новость1</h3>
+                                                                <p>Описание Новости1</p>
+                                                        </section>
+                                                        <section>
+                                                                <span class="icon major fa-diamond"></span>
+                                                                <h3>Новость2</h3>
+                                                                <p>Описание Новости2</p>
+                                                        </section>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+
+                        '],
+                'kinonews'=>['title'=>'Kinonews', 'content'=>'
+                        <section>
+                                                <a href="#" class="image"><img src="images/cat1.jpg" alt="" data-position="25% 25%" /></a>
+                                                <div class="content">
+                                                        <div class="inner">
+                                                                <h2>Текст)</h2>
+                                                                <p>тексттексттексттексттексттексттексттексттексттексттексттексттексттексттексттексттексттексттексттексттекст.</p>
+                                                                <ul class="actions">
+                                                                        <li><a href="#" class="button">Посмотреть на котика</a></li>
+                                                                </ul>
+                                                        </div>
+                                                </div>
+                                        </section>
+                        ']
+        ];
+
+       
+
+        ?>
+
+                    

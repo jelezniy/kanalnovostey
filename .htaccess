@@ -1,0 +1,4 @@
+AddDefaultCharset utf-8
+http://stud9.php1601.asdat.info/?page=enter
+RewriteEngine on
+RewriteRule ^([^/]+)/?$ ?page=$0 [L]
