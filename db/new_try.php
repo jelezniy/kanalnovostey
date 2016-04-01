@@ -37,9 +37,3 @@ mysqli_close($mysqli);
 
 
 
-   <!--                               <a href=" <?php echo $item['main']?'/':$item['link'];?>" 
-					title="<?php echo iconv('UTF-8', 'CP1251', $item['title']);?>"> 
-					<?php echo iconv('UTF-8', 'CP1251', $item['title']);?>
-				</a>
-                                -->
- 

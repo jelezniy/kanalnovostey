@@ -44,7 +44,7 @@
 							fusce hendrerit lacus ridiculus.</p>
 
 							<div class="row">
-								<div class="4u 12u$(mobile)">
+								<div class="4u 12u(mobile)">
 									<article class="item">
 										<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
 										<header>
